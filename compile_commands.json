@@ -1,0 +1,17 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Wall",
+      "-std=c++17",
+      "-I./libs",
+      "-o",
+      "engine",
+      "src/main.cpp"
+    ],
+    "directory": "/mnt/Data/studies/c++/game",
+    "file": "/mnt/Data/studies/c++/game/src/main.cpp",
+    "output": "/mnt/Data/studies/c++/game/engine"
+  }
+]
