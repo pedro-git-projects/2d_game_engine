@@ -22,13 +22,19 @@ void Game::Initialize() {
 		std::cerr << "Failed to initialize SDL" << std::endl;
 		return;
 	}
+	/* Creating a display mode struct and populating it with the first monitor specs */
+	SDL_DisplayMode displayMode;
+	SDL_GetCurrentDisplayMode(0, &displayMode);
+	/* Setting width and height with displayMode */
+	windoWidth = displayMode.w;
+	windowHeight = displayMode.h;
 	/* Populate window pointer */
 	window = SDL_CreateWindow(
 			NULL, 
 			SDL_WINDOWPOS_CENTERED, 
 			SDL_WINDOWPOS_CENTERED, 
-			800, 
-			600, 
+			windoWidth,
+			windowHeight,
 			SDL_WINDOW_BORDERLESS
 		);	
 	if(!window) {
@@ -40,6 +46,8 @@ void Game::Initialize() {
 		std::cerr << "Failed to create renderer" << std::endl;
 		return;
 	}
+	/* Changing video mode to real full screen */
+	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 	/* Nothing failed, engine is running */
 	isRunning = true;
 }
