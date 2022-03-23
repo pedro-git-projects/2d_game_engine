@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Logger.h"
 #include "glm/fwd.hpp"
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_events.h>
@@ -12,20 +13,19 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
-/* Constructor*/
 Game::Game() {
 	isRunning = false;
-	std::cout << "Game constructor invoked" << std::endl;
+	Logger::Log("Game constructor invoked");
 }
 
 Game::~Game() {
-	std::cout << "Game destructor invoked" << std::endl;
+	Logger::Log("Game destructor invoked");
 }
 
 void Game::Initialize() {
 	/* Initialize SDL */
 	if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		std::cerr << "Failed to initialize SDL" << std::endl;
+		Logger::Err("Failed to initialize SDL");
 		return;
 	}
 	/* Creating a display mode struct and populating it with the first monitor specs */
@@ -44,13 +44,13 @@ void Game::Initialize() {
 			SDL_WINDOW_BORDERLESS
 		);	
 	if(!window) {
-		std::cerr << "Failed to create window" << std::endl;
+		Logger::Err("Failed to create window");
 		return;
 	}
 	/* Populate renderer pointer*/
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if(!renderer) {
-		std::cerr << "Failed to create renderer" << std::endl;
+		Logger::Err("Failed to create renderer");
 		return;
 	}
 	/* Changing video mode to real full screen */
