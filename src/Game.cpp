@@ -26,8 +26,8 @@ void Game::Initialize() {
 	SDL_DisplayMode displayMode;
 	SDL_GetCurrentDisplayMode(0, &displayMode);
 	/* Setting width and height with displayMode */
-	windoWidth = displayMode.w;
-	windowHeight = displayMode.h;
+	windoWidth = 800; // displayMode.w;
+	windowHeight = 600; // displayMode.h;
 	/* Populate window pointer */
 	window = SDL_CreateWindow(
 			NULL, 
@@ -41,7 +41,7 @@ void Game::Initialize() {
 		std::cerr << "Failed to create window" << std::endl;
 	}
 	/* Populate renderer pointer*/
-	renderer = SDL_CreateRenderer(window, -1, 0);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if(!renderer) {
 		std::cerr << "Failed to create renderer" << std::endl;
 		return;
