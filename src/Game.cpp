@@ -5,6 +5,7 @@
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
+#include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
 #include <glm/glm.hpp>
 #include <cstddef>
@@ -88,17 +89,25 @@ glm::vec2 playerVelocity;
 
 void Game::Setup() {
 	playerPosition = glm::vec2(10.0, 20.0);
-	playerVelocity = glm::vec2(0.5, 0.0);
+	playerVelocity = glm::vec2(100.0, 0.0);
 }
 
 void Game::Update() {
-    while (!SDL_TICKS_PASSED(SDL_GetTicks(), millisecsPreviousFrame + MILLISECS_PER_FRAME));
+	/* Correcting framerate with SDL_Delay to cap framerate */
+	int timeToWait = MILLISECS_PER_FRAME - (SDL_GetTicks() - millisecsPreviousFrame);
+	if(timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME) {
+		SDL_Delay(timeToWait);
+	}
 
-    // Store the "previous" frame time
+	/* Difference in ticks from last frame casted into seconds */
+	double deltaTime = (SDL_GetTicks() - millisecsPreviousFrame) / 1000.0;
+
+	/* Sotring "previous" frametime */
     millisecsPreviousFrame = SDL_GetTicks();
 
-    playerPosition.x += playerVelocity.x;
-    playerPosition.y += playerVelocity.y;
+	/* Incrementing player position accounting for the delta time */
+    playerPosition.x += playerVelocity.x * deltaTime;
+    playerPosition.y += playerVelocity.y * deltaTime;
 
 }
 

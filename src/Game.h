@@ -14,8 +14,8 @@ class Game {
 		SDL_Renderer* renderer; 
 
 	public:
-		Game(); /* Constructor */
-		~Game(); /* Destructor */	
+		Game(); 
+		~Game();	
 		void Initialize();
 		void Setup();
 		void Run();
