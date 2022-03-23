@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Game.h"
+#include "./Game/Game.h"
 
 int main(int argc, char* argv[]) {
 	Game game; /* Since new was not used the game object will be stored in the Stack */

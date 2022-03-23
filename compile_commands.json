@@ -4,14 +4,15 @@
       "/usr/bin/g++",
       "-c",
       "-Wall",
+      "-Wfatal-errors",
       "-std=c++17",
       "-I./libs/",
       "-o",
       "engine",
-      "src/Game.cpp"
+      "./src/main.cpp"
     ],
     "directory": "/mnt/Data/studies/c++/game",
-    "file": "/mnt/Data/studies/c++/game/src/Game.cpp",
+    "file": "/mnt/Data/studies/c++/game/src/main.cpp",
     "output": "/mnt/Data/studies/c++/game/engine"
   },
   {
@@ -19,14 +20,31 @@
       "/usr/bin/g++",
       "-c",
       "-Wall",
+      "-Wfatal-errors",
       "-std=c++17",
       "-I./libs/",
       "-o",
       "engine",
-      "src/main.cpp"
+      "./src/Game/Game.cpp"
     ],
     "directory": "/mnt/Data/studies/c++/game",
-    "file": "/mnt/Data/studies/c++/game/src/main.cpp",
+    "file": "/mnt/Data/studies/c++/game/src/Game/Game.cpp",
+    "output": "/mnt/Data/studies/c++/game/engine"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Wall",
+      "-Wfatal-errors",
+      "-std=c++17",
+      "-I./libs/",
+      "-o",
+      "engine",
+      "./src/Logger/Logger.cpp"
+    ],
+    "directory": "/mnt/Data/studies/c++/game",
+    "file": "/mnt/Data/studies/c++/game/src/Logger/Logger.cpp",
     "output": "/mnt/Data/studies/c++/game/engine"
   }
 ]
