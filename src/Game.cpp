@@ -1,10 +1,12 @@
 #include "Game.h"
+#include "glm/fwd.hpp"
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_video.h>
+#include <glm/glm.hpp>
 #include <cstddef>
 #include <iostream>
 #include <SDL2/SDL.h>
@@ -42,6 +44,7 @@ void Game::Initialize() {
 		);	
 	if(!window) {
 		std::cerr << "Failed to create window" << std::endl;
+		return;
 	}
 	/* Populate renderer pointer*/
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -56,6 +59,7 @@ void Game::Initialize() {
 }
 
 void Game::Run() { 
+	Setup();
 	while (isRunning) {
 		ProcessInput();
 		Update();
@@ -79,9 +83,24 @@ void Game::ProcessInput() {
 	}
 }
 
-void Game::Setup() {}
+glm::vec2 playerPosition;
+glm::vec2 playerVelocity;
 
-void Game::Update(){}
+void Game::Setup() {
+	playerPosition = glm::vec2(10.0, 20.0);
+	playerVelocity = glm::vec2(0.5, 0.0);
+}
+
+void Game::Update() {
+    while (!SDL_TICKS_PASSED(SDL_GetTicks(), millisecsPreviousFrame + MILLISECS_PER_FRAME));
+
+    // Store the "previous" frame time
+    millisecsPreviousFrame = SDL_GetTicks();
+
+    playerPosition.x += playerVelocity.x;
+    playerPosition.y += playerVelocity.y;
+
+}
 
 void Game::Render() {
 	/* Setting background color */
@@ -91,8 +110,15 @@ void Game::Render() {
 	/* Render PNG */
 	SDL_Surface* surface =	IMG_Load("./assets/images/tank-tiger-right.png"); /*create surface pointer*/
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface); /*create texture pointer*/
-	SDL_FreeSurface(surface); /*  Destroy surface */
-	SDL_Rect destinationRect = {10, 10, 32, 32};
+	SDL_FreeSurface(surface); /*  Destroy typesurface */
+	/* Creating destinationRect using playerPosition */
+	SDL_Rect destinationRect = {
+        static_cast<int>(playerPosition.x), 
+        static_cast<int>(playerPosition.y), 
+        32,
+        32
+    };
+
 	SDL_RenderCopy(renderer, texture, NULL, &destinationRect); /* Render texure on destinationRect */
 	SDL_DestroyTexture(texture); /* Destroy texture */
 	
