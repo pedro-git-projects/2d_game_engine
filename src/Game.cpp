@@ -1,7 +1,9 @@
 #include "Game.h"
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_video.h>
 #include <cstddef>
 #include <iostream>
@@ -85,12 +87,15 @@ void Game::Render() {
 	/* Setting background color */
 	SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
 	SDL_RenderClear(renderer);
-	
-	/* Drawing Rectangle */
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_Rect player = {10, 10, 20, 20};
-	SDL_RenderFillRect(renderer, &player);
 
+	/* Render PNG */
+	SDL_Surface* surface =	IMG_Load("./assets/images/tank-tiger-right.png"); /*create surface pointer*/
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface); /*create texture pointer*/
+	SDL_FreeSurface(surface); /*  Destroy surface */
+	SDL_Rect destinationRect = {10, 10, 32, 32};
+	SDL_RenderCopy(renderer, texture, NULL, &destinationRect); /* Render texure on destinationRect */
+	SDL_DestroyTexture(texture); /* Destroy texture */
+	
 	/* Displaying render */
 	SDL_RenderPresent(renderer);
 }

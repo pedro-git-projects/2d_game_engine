@@ -5,7 +5,22 @@
       "-c",
       "-Wall",
       "-std=c++17",
-      "-I./libs",
+      "-I./libs/",
+      "-o",
+      "engine",
+      "src/Game.cpp"
+    ],
+    "directory": "/mnt/Data/studies/c++/game",
+    "file": "/mnt/Data/studies/c++/game/src/Game.cpp",
+    "output": "/mnt/Data/studies/c++/game/engine"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Wall",
+      "-std=c++17",
+      "-I./libs/",
       "-o",
       "engine",
       "src/main.cpp"
